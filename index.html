@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Mother's Day!</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #fff5f8;
+      text-align: center;
+      padding: 20px;
+    }
+    h1 {
+      color: #d6336c;
+    }
+    #game {
+      display: grid;
+      grid-template-columns: repeat(7, 60px);
+      grid-gap: 5px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    .cell {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: #f8f9fa;
+      border: 2px solid #adb5bd;
+      cursor: pointer;
+    }
+    .red { background-color: #e64980; }
+    .yellow { background-color: #fab005; }
+    #message {
+      font-size: 1.2em;
+      margin-top: 20px;
+      color: #495057;
+    }
+    #celebration {
+      display: none;
+      font-size: 1.5em;
+      margin-top: 30px;
+      color: #d6336c;
+    }
+  </style>
+</head>
+<body>
+  <h1>Connect Four - Mother's Day Edition</h1>
+  <p>Make your move 💖</p>
+  <div id="game"></div>
+  <div id="message"></div>
+  <div id="celebration">🎉 Happy Mother's Day! You already win every day 💐💛</div>
+
+  <script>
+    const columns = 7;
+    const rows = 6;
+    const game = document.getElementById('game');
+    const message = document.getElementById('message');
+    const celebration = document.getElementById('celebration');
+    const grid = [];
+
+    // Initialize board
+    for (let r = 0; r < rows; r++) {
+      grid[r] = [];
+      for (let c = 0; c < columns; c++) {
+        const cell = document.createElement('div');
+        cell.classList.add('cell');
+        cell.dataset.row = r;
+        cell.dataset.col = c;
+        game.appendChild(cell);
+        grid[r][c] = cell;
+      }
+    }
+
+    // Pre-fill the board with a near-win setup for Red (you)
+    function setupBoard() {
+      const positions = [
+        [5, 0, 'red'], [5, 1, 'red'], [5, 2, 'red'],
+        [5, 3, ''], [5, 4, 'yellow'], [5, 5, 'yellow'], [5, 6, 'yellow'],
+      ];
+      positions.forEach(([r, c, color]) => {
+        if (color) grid[r][c].classList.add(color);
+      });
+    }
+
+    setupBoard();
+
+    // Add event listener for the final move
+    grid[5][3].addEventListener('click', function handleClick() {
+      this.classList.add('red');
+      message.textContent = "You win! 🎊";
+      celebration.style.display = 'block';
+      this.removeEventListener('click', handleClick);
+    });
+  </script>
+</body>
+</html>
