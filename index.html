@@ -3,53 +3,118 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Happy Mother's Day!</title>
+  <title>Tap to Play</title>
   <style>
+    :root {
+      --red: #e64980;
+      --yellow: #fab005;
+      --background: #fff5f8;
+      --grid-gap: 4px;
+    }
+
     body {
+      margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background: #fff5f8;
-      text-align: center;
-      padding: 20px;
+      background: var(--background);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      padding: 20px 10px;
     }
+
     h1 {
-      color: #d6336c;
+      font-size: 1.5em;
+      margin-bottom: 10px;
+      color: #333;
     }
+
     #game {
       display: grid;
-      grid-template-columns: repeat(7, 60px);
-      grid-gap: 5px;
-      justify-content: center;
-      margin-top: 20px;
+      grid-template-columns: repeat(7, 1fr);
+      grid-gap: var(--grid-gap);
+      width: 100%;
+      max-width: 400px;
+      aspect-ratio: 7 / 6;
+      margin: 0 auto;
     }
+
     .cell {
-      width: 60px;
-      height: 60px;
+      width: 100%;
+      aspect-ratio: 1;
       border-radius: 50%;
-      background: #f8f9fa;
-      border: 2px solid #adb5bd;
+      background: #f1f3f5;
+      border: 2px solid #dee2e6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       cursor: pointer;
+      transition: background 0.3s ease;
     }
-    .red { background-color: #e64980; }
-    .yellow { background-color: #fab005; }
+
+    .red::before, .yellow::before {
+      content: '';
+      display: block;
+      width: 70%;
+      height: 70%;
+      border-radius: 50%;
+    }
+
+    .red::before {
+      background-color: var(--red);
+    }
+
+    .yellow::before {
+      background-color: var(--yellow);
+    }
+
     #message {
-      font-size: 1.2em;
+      font-size: 1em;
       margin-top: 20px;
       color: #495057;
     }
+
     #celebration {
       display: none;
-      font-size: 1.5em;
+      font-size: 1.3em;
       margin-top: 30px;
       color: #d6336c;
+      max-width: 90%;
+      text-align: center;
+    }
+
+    #custom-message {
+      display: none;
+      margin-top: 20px;
+      padding: 15px;
+      border: 1px solid #e6c3cb;
+      border-radius: 10px;
+      background-color: #fff0f5;
+      color: #333;
+      max-width: 90%;
+      line-height: 1.4;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 1.3em;
+      }
+      #celebration {
+        font-size: 1.1em;
+      }
     }
   </style>
 </head>
 <body>
-  <h1>Connect Four - Mother's Day Edition</h1>
-  <p>Make your move 💖</p>
+  <h1>Just a quick game...</h1>
   <div id="game"></div>
   <div id="message"></div>
-  <div id="celebration">🎉 Happy Mother's Day! You already win every day 💐💛</div>
+  <div id="celebration">You win, Baddi! 🎉</div>
+  <div id="custom-message">
+    <strong>Happy Mother's Day</strong><br />
+    You already win every day, but I wanted to rig this one just for you. Thank you for being amazing—today and always. —Ficker
+  </div>
 
   <script>
     const columns = 7;
@@ -57,6 +122,7 @@
     const game = document.getElementById('game');
     const message = document.getElementById('message');
     const celebration = document.getElementById('celebration');
+    const customMessage = document.getElementById('custom-message');
     const grid = [];
 
     // Initialize board
@@ -72,11 +138,11 @@
       }
     }
 
-    // Pre-fill the board with a near-win setup for Red (you)
+    // Pre-fill the board with a near-win setup for Baddi (yellow)
     function setupBoard() {
       const positions = [
-        [5, 0, 'red'], [5, 1, 'red'], [5, 2, 'red'],
-        [5, 3, ''], [5, 4, 'yellow'], [5, 5, 'yellow'], [5, 6, 'yellow'],
+        [5, 0, 'yellow'], [5, 1, 'yellow'], [5, 2, 'yellow'],
+        [5, 3, ''], [5, 4, 'red'], [5, 5, 'red'], [5, 6, 'red'],
       ];
       positions.forEach(([r, c, color]) => {
         if (color) grid[r][c].classList.add(color);
@@ -87,9 +153,10 @@
 
     // Add event listener for the final move
     grid[5][3].addEventListener('click', function handleClick() {
-      this.classList.add('red');
-      message.textContent = "You win! 🎊";
+      this.classList.add('yellow');
+      message.textContent = "Ficker vs Baddi: Baddi wins!";
       celebration.style.display = 'block';
+      customMessage.style.display = 'block';
       this.removeEventListener('click', handleClick);
     });
   </script>
