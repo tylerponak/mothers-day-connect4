@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mother's Day Connect 4</title>
+  <title>Open Me 🤭</title>
   <style>
     body {
       margin: 0;
@@ -20,16 +19,6 @@
       font-weight: bold;
       border-bottom: 2px solid #f7a8b8;
       font-size: 1rem;
-    }
-
-    header {
-      padding: 20px 10px;
-    }
-
-    h1 {
-      margin: 0;
-      font-size: 1.5rem;
-      color: #d6336c;
     }
 
     .scoreboard {
@@ -48,7 +37,7 @@
       color: white;
       padding: 10px;
       border-radius: 10px;
-      width: 120px;
+      width: 100px;
       font-weight: bold;
     }
 
@@ -62,8 +51,8 @@
 
     #game {
       display: grid;
-      grid-template-columns: repeat(7, 48px);
-      gap: 5px;
+      grid-template-columns: repeat(6, 42px);
+      gap: 4px;
       background-color: white;
       padding: 15px;
       border-radius: 20px;
@@ -73,8 +62,8 @@
     }
 
     .cell {
-      width: 48px;
-      height: 48px;
+      width: 42px;
+      height: 42px;
       border-radius: 50%;
       background-color: #f1f3f5;
       border: 2px solid #dee2e6;
@@ -82,11 +71,11 @@
     }
 
     .blue {
-      background-color: #9dd9ea;
+      background-color: #9dd9ea !important;
     }
 
     .pink {
-      background-color: #f7a8b8;
+      background-color: #f7a8b8 !important;
     }
 
     .celebration {
@@ -111,14 +100,14 @@
 
     @media (max-width: 600px) {
       #game {
-        grid-template-columns: repeat(7, 12vw);
+        grid-template-columns: repeat(6, 10vw);
+        gap: 3px;
         padding: 10px;
-        width: 90vw;
       }
 
       .cell {
-        width: 12vw;
-        height: 12vw;
+        width: 10vw;
+        height: 10vw;
       }
 
       .celebration {
@@ -135,10 +124,6 @@
 <body>
   <div class="notification" id="turnNotification">baddie, it's your move!</div>
 
-  <header>
-    <h1></h1>
-  </header>
-
   <div class="scoreboard">
     <div class="player pink">baddie</div>
     <div class="player blue">ficker</div>
@@ -154,10 +139,11 @@ I figured this was a fun way to wish it to you ahahah. Just wanted to say, watch
   </div>
 
   <script>
-    const columns = 7;
+    const columns = 6;
     const rows = 6;
     const game = document.getElementById('game');
     const celebration = document.getElementById('celebration');
+    const turnNotification = document.getElementById('turnNotification');
     const grid = [];
 
     for (let r = 0; r < rows; r++) {
@@ -172,26 +158,35 @@ I figured this was a fun way to wish it to you ahahah. Just wanted to say, watch
       }
     }
 
-    function setupBoard() {
-      const positions = [
-        [5, 0, 'pink'], [5, 1, 'pink'], [5, 2, 'pink'],
-        [5, 3, ''], [5, 4, 'blue'], [5, 5, 'blue'], [5, 6, 'blue']
-      ];
-      positions.forEach(([r, c, color]) => {
-        if (color) grid[r][c].classList.add(color);
+    // Fill from bottom-up: rows 5 to 0
+    const fillPattern = [
+      ['pink',  '',     'pink',  'pink',  'blue',  'blue'], // row 0 (top)
+      ['pink',  'blue', 'blue',  'pink',  'pink',  'pink'], // row 1
+      ['blue',  'blue', 'pink',  'blue',  'blue',  'blue'], // row 2
+      ['pink',  'pink', 'blue',  'pink',  'pink',  'pink'], // row 3
+      ['blue',  'pink', 'pink',  'blue',  'blue',  'blue'], // row 4
+      ['pink',  'blue', 'blue',  'pink',  'pink',  'pink']  // row 5 (bottom)
+    ];
+
+    fillPattern.forEach((rowVals, r) => {
+      rowVals.forEach((color, c) => {
+        if (color) {
+          grid[r][c].classList.add(color);
+        }
       });
-    }
+    });
 
-    setupBoard();
+    const targetRow = 0;
+    const targetCol = 1;
 
-    grid[5][3].addEventListener('click', function handleClick() {
-      this.classList.add('pink');
-      document.getElementById('turnNotification').textContent = "baddie wins!";
+    const targetCell = grid[targetRow][targetCol];
+    targetCell.addEventListener('click', function handleClick() {
+      targetCell.classList.add('pink');
+      targetCell.removeEventListener('click', handleClick);
+      turnNotification.textContent = "baddie wins!";
       celebration.style.display = 'block';
-      this.removeEventListener('click', handleClick);
       celebration.scrollIntoView({ behavior: 'smooth' });
     });
   </script>
 </body>
-
 </html>
