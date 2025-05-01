@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -51,23 +52,28 @@
 
     #game {
       display: grid;
-      grid-template-columns: repeat(6, 42px);
-      gap: 4px;
+      grid-template-columns: repeat(6, 48px);
+      gap: 6px;
       background-color: white;
-      padding: 15px;
+      padding: 25px;
       border-radius: 20px;
-      margin: 10px auto;
+      margin: 20px auto;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
       width: fit-content;
     }
 
     .cell {
-      width: 42px;
-      height: 42px;
+      width: 48px;
+      height: 48px;
       border-radius: 50%;
       background-color: #f1f3f5;
       border: 2px solid #dee2e6;
       cursor: pointer;
+      transition: box-shadow 0.2s ease;
+    }
+
+    .cell:not(.blue):not(.pink):hover {
+      box-shadow: 0 0 10px 3px rgba(214, 51, 108, 0.5);
     }
 
     .blue {
@@ -100,14 +106,14 @@
 
     @media (max-width: 600px) {
       #game {
-        grid-template-columns: repeat(6, 10vw);
-        gap: 3px;
-        padding: 10px;
+        grid-template-columns: repeat(6, 13vw);
+        gap: 5px;
+        padding: 15px;
       }
 
       .cell {
-        width: 10vw;
-        height: 10vw;
+        width: 13vw;
+        height: 13vw;
       }
 
       .celebration {
@@ -122,11 +128,11 @@
 </head>
 
 <body>
-  <div class="notification" id="turnNotification">baddie, it's your move!</div>
+  <div class="notification" id="turnNotification">Sweetie, it's your move!</div>
 
   <div class="scoreboard">
-    <div class="player pink">baddie</div>
-    <div class="player blue">ficker</div>
+    <div class="player pink">Sweetie</div>
+    <div class="player blue">Ficker</div>
   </div>
 
   <div id="game"></div>
@@ -134,7 +140,10 @@
   <div class="celebration" id="celebration">
     Happy Mother’s Day, Jade!
     <div class="message-long" id="longMessage">
-I figured this was a fun way to wish it to you ahahah. Just wanted to say, hearing the way you care for your son and how much love you pour into everything you do for him is honestly amazing. He’s so lucky to have you, and I really think you’re doing such a great job. I hope today reminds you of how appreciated and loved you are. You really deserve that and more. ❤️
+      I figured this was a fun way to wish it to you ahahah. Just wanted to say, hearing the way you care for your son
+      and how much love you pour into everything you do for him is honestly amazing. He’s so lucky to have you, and I
+      really think you’re doing such a great job. I hope today reminds you of how appreciated and loved you are. You
+      really deserve that and more. ❤️
     </div>
   </div>
 
@@ -158,14 +167,13 @@ I figured this was a fun way to wish it to you ahahah. Just wanted to say, heari
       }
     }
 
-    // Fill from bottom-up: rows 5 to 0
     const fillPattern = [
-      ['pink',  '',     'pink',  'pink',  'blue',  'blue'], // row 0 (top)
-      ['pink',  'blue', 'blue',  'pink',  'pink',  'pink'], // row 1
-      ['blue',  'blue', 'pink',  'blue',  'blue',  'blue'], // row 2
-      ['pink',  'pink', 'blue',  'pink',  'pink',  'pink'], // row 3
-      ['blue',  'pink', 'pink',  'blue',  'blue',  'blue'], // row 4
-      ['pink',  'blue', 'blue',  'pink',  'pink',  'pink']  // row 5 (bottom)
+      ['pink',  '',     'pink',  'pink',  'blue',  'blue'],
+      ['pink',  'blue', 'blue',  'pink',  'pink',  'pink'],
+      ['blue',  'blue', 'pink',  'blue',  'blue',  'blue'],
+      ['pink',  'pink', 'blue',  'pink',  'pink',  'pink'],
+      ['blue',  'pink', 'pink',  'blue',  'blue',  'blue'],
+      ['pink',  'blue', 'blue',  'pink',  'pink',  'pink']
     ];
 
     fillPattern.forEach((rowVals, r) => {
@@ -180,13 +188,15 @@ I figured this was a fun way to wish it to you ahahah. Just wanted to say, heari
     const targetCol = 1;
 
     const targetCell = grid[targetRow][targetCol];
+
     targetCell.addEventListener('click', function handleClick() {
       targetCell.classList.add('pink');
       targetCell.removeEventListener('click', handleClick);
-      turnNotification.textContent = "baddie wins!";
+      turnNotification.textContent = "Sweetie wins!";
       celebration.style.display = 'block';
       celebration.scrollIntoView({ behavior: 'smooth' });
     });
   </script>
 </body>
+
 </html>
