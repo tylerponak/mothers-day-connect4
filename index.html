@@ -34,11 +34,11 @@
 
     .scoreboard {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      max-width: 400px;
-      margin: 0 auto 10px;
+      justify-content: center;
+      gap: 10px;
+      margin: 10px auto;
       padding: 10px;
+      flex-wrap: wrap;
     }
 
     .player {
@@ -67,9 +67,9 @@
       background-color: white;
       padding: 15px;
       border-radius: 20px;
-      max-width: 100%;
       margin: 10px auto;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      width: fit-content;
     }
 
     .cell {
@@ -92,13 +92,14 @@
     .celebration {
       font-size: 1.4rem;
       color: #d6336c;
-      margin-top: 20px;
+      margin-top: 30px;
       display: none;
+      padding: 0 20px;
     }
 
     .message-long {
       margin-top: 10px;
-      max-width: 800px;
+      max-width: 90%;
       margin-left: auto;
       margin-right: auto;
       font-size: 1rem;
@@ -108,25 +109,24 @@
       white-space: pre-wrap;
     }
 
-    @media (max-width: 500px) {
-      .scoreboard {
-        flex-direction: row;
-        gap: 10px;
-        justify-content: center;
-      }
-
-      .player {
-        width: auto;
-      }
-
+    @media (max-width: 600px) {
       #game {
-        width: 80%; /* Smaller board on mobile */
+        grid-template-columns: repeat(7, 12vw);
         padding: 10px;
+        width: 90vw;
+      }
+
+      .cell {
+        width: 12vw;
+        height: 12vw;
       }
 
       .celebration {
         font-size: 1.2rem;
-        padding: 10px;
+      }
+
+      .message-long {
+        font-size: 0.95rem;
       }
     }
   </style>
@@ -189,6 +189,7 @@ I figured this was a fun way to wish it to you ahahah. Just wanted to say, watch
       document.getElementById('turnNotification').textContent = "baddie wins!";
       celebration.style.display = 'block';
       this.removeEventListener('click', handleClick);
+      celebration.scrollIntoView({ behavior: 'smooth' });
     });
   </script>
 </body>
