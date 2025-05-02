@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -53,9 +52,9 @@
     #game {
       display: grid;
       grid-template-columns: repeat(6, 48px);
-      gap: 6px;
+      gap: 8px;
       background-color: white;
-      padding: 25px;
+      padding: 20px;
       border-radius: 20px;
       margin: 20px auto;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -70,10 +69,6 @@
       border: 2px solid #dee2e6;
       cursor: pointer;
       transition: box-shadow 0.2s ease;
-    }
-
-    .cell:not(.blue):not(.pink):hover {
-      box-shadow: 0 0 10px 3px rgba(214, 51, 108, 0.5);
     }
 
     .blue {
@@ -94,14 +89,15 @@
 
     .message-long {
       margin-top: 10px;
-      max-width: 90%;
       margin-left: auto;
       margin-right: auto;
+      max-width: 500px;
       font-size: 1rem;
       color: #343a40;
-      line-height: 1.5;
+      line-height: 1.7;
+      text-align: left;
       word-wrap: break-word;
-      white-space: pre-wrap;
+      white-space: normal;
     }
 
     @media (max-width: 600px) {
@@ -122,17 +118,19 @@
 
       .message-long {
         font-size: 0.95rem;
+        max-width: 90%;
+        text-align: left;
       }
     }
   </style>
 </head>
 
 <body>
-  <div class="notification" id="turnNotification">Sweetie, it's your move!</div>
+  <div class="notification" id="turnNotification">baddie, it's your move!</div>
 
   <div class="scoreboard">
-    <div class="player pink">Sweetie</div>
-    <div class="player blue">Ficker</div>
+    <div class="player pink">baddie</div>
+    <div class="player blue">ficker</div>
   </div>
 
   <div id="game"></div>
@@ -140,10 +138,11 @@
   <div class="celebration" id="celebration">
     Happy Mother’s Day, Jade!
     <div class="message-long" id="longMessage">
-      I figured this was a fun way to wish it to you ahahah. Just wanted to say, hearing the way you care for your son
-      and how much love you pour into everything you do for him is honestly amazing. He’s so lucky to have you, and I
-      really think you’re doing such a great job. I hope today reminds you of how appreciated and loved you are. You
-      really deserve that and more. ❤️
+      I figured this was a fun way to wish it to you ahahah.<br><br>
+      Just wanted to say, hearing the way you care for your son and how much love you pour into everything you do for him is honestly amazing.<br><br>
+      He’s so lucky to have you, and I really think you’re doing such a great job.<br><br>
+      I hope today reminds you of how appreciated and loved you are.<br><br>
+      You really deserve that and more. ❤️
     </div>
   </div>
 
@@ -186,17 +185,15 @@
 
     const targetRow = 0;
     const targetCol = 1;
-
     const targetCell = grid[targetRow][targetCol];
 
     targetCell.addEventListener('click', function handleClick() {
       targetCell.classList.add('pink');
       targetCell.removeEventListener('click', handleClick);
-      turnNotification.textContent = "Sweetie wins!";
+      turnNotification.textContent = "baddie wins!";
       celebration.style.display = 'block';
       celebration.scrollIntoView({ behavior: 'smooth' });
     });
   </script>
 </body>
-
 </html>
