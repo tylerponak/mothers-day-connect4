@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Open Me 🤭</title>
+  <title>open me...</title>
   <style>
     body {
       margin: 0;
@@ -88,7 +88,7 @@
     }
 
     .message-long {
-      margin-top: 10px;
+      margin-top: 25px;
       margin-left: auto;
       margin-right: auto;
       max-width: 500px;
@@ -98,6 +98,8 @@
       text-align: left;
       word-wrap: break-word;
       white-space: normal;
+      padding-top: 10px;
+      padding-bottom: 30px;
     }
 
     @media (max-width: 600px) {
@@ -126,10 +128,10 @@
 </head>
 
 <body>
-  <div class="notification" id="turnNotification">baddie, it's your move!</div>
+  <div class="notification" id="turnNotification">Sweetie, it's your move!</div>
 
   <div class="scoreboard">
-    <div class="player pink">baddie</div>
+    <div class="player pink">Sweetie</div>
     <div class="player blue">ficker</div>
   </div>
 
@@ -190,7 +192,7 @@
     targetCell.addEventListener('click', function handleClick() {
       targetCell.classList.add('pink');
       targetCell.removeEventListener('click', handleClick);
-      turnNotification.textContent = "baddie wins!";
+      turnNotification.textContent = "Sweetie wins!";
       celebration.style.display = 'block';
       celebration.scrollIntoView({ behavior: 'smooth' });
     });
